@@ -1,0 +1,938 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1046{\fonttbl{\f0\fnil\fcharset0 Calibri-Bold;}{\f1\fnil\fcharset0 Calibri;}}
+{\colortbl ;\red89\green52\blue148;\red0\green0\blue0;\red0\green77\blue187;}
+{\*\generator Riched20 10.0.22621}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\b\f0\fs32\lang22 TEMA 04-Estrutura de controle\par
+
+\pard\qj\cf1\fs28 4.1 Introdu\'e7\'e3o e conceito\par
+\cf2\b0\f1\fs22 Estrutura de controle em qualquer linguagem de programa\'e7\'e3o \'e9 o fluxo de controle dos dados de entrada e sa\'edda, vejamos alguns exemplos pr\'e1ticos na sintaxe do PHP.\par
+\par
+\cf1\b\f0\fs28 4.2 IF e ELSE simples e composto\par
+\cf2\b0\f1\fs22 Dentro da programa\'e7\'e3o vamos ter muitas situa\'e7\'f5es de decis\'e3o, a\'ed entra o fluxo de controle conhecido como condicional. Caso essa decis\'e3o ou express\'e3o seja avaliada como verdadeiro ou falso a mesma vai partir para uma sequ\'eancia de comando que ser\'e1 logo executada. Vamos falar agora da estrutura if e depois do else, uma das estruturas mais usadas dentro de qualquer linguagem de programa\'e7\'e3o.\par
+\par
+\cf1\fs26 IF\par
+
+\pard\sa200\sl276\slmult1\qj\cf2\fs22 Caso a express\'e3o seja verdadeira (true), a programa\'e7\'e3o vai seguir um caminho.\par
+
+\pard\qj\cf1\fs26 IF E ELSE\par
+\cf2\fs22 J\'e1 a express\'e3o IF com ELSE, temos agora o outro lado da quest\'e3o: caso seja falso, determinamos uma sequ\'eancia l\'f3gica.\par
+\par
+
+\pard\li720\qj\cf3 <!DOCTYPE html>\par
+<html>\par
+<head>\par
+    <title>Exemplo de IF em PHP Interativo</title>\par
+    <style>\par
+        body \{\par
+            font-family: Arial, sans-serif;\par
+            background-color: #f4f4f4;\par
+            margin: 0;\par
+            padding: 0;\par
+            display: flex;\par
+            justify-content: center;\par
+            align-items: center;\par
+            height: 100vh;\par
+        \}\par
+\par
+        .container \{\par
+            background-color: #fff;\par
+            padding: 20px;\par
+            border-radius: 8px;\par
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);\par
+        \}\par
+\par
+        h2 \{\par
+            color: #333;\par
+            margin-bottom: 20px;\par
+            text-align: center;\par
+        \}\par
+\par
+        label \{\par
+            display: block;\par
+            margin-bottom: 5px;\par
+            color: #333;\par
+        \}\par
+\par
+        input[type="number"] \{\par
+            width: 100%;\par
+            padding: 10px;\par
+            border: 1px solid #ccc;\par
+            border-radius: 4px;\par
+        \}\par
+\par
+        button \{\par
+            display: block;\par
+            width: 100%;\par
+            padding: 10px;\par
+            background-color: #007bff;\par
+            color: #fff;\par
+            border: none;\par
+            border-radius: 4px;\par
+            cursor: pointer;\par
+            transition: background-color 0.3s;\par
+        \}\par
+\par
+        button:hover \{\par
+            background-color: #0056b3;\par
+        \}\par
+\par
+        .message \{\par
+            margin-top: 20px;\par
+            padding: 10px;\par
+            border-radius: 4px;\par
+            text-align: center;\par
+        \}\par
+\par
+        .success \{\par
+            color: green;\par
+        \}\par
+\par
+        .error \{\par
+            color: red;\par
+        \}\par
+    </style>\par
+</head>\par
+<body>\par
+\par
+\b <?php\par
+// Inicializa a vari\'e1vel de idade\par
+$idade = '';\par
+\par
+// Verifica se o formul\'e1rio foi enviado\par
+if ($_SERVER["REQUEST_METHOD"] == "POST") \{\par
+    // Obt\'e9m a idade fornecida pelo usu\'e1rio do formul\'e1rio\par
+    $idade = $_POST['idade'];\par
+\par
+    // Verifica a idade e define a mensagem correspondente\par
+    if ($idade >= 18) \{\par
+        $mensagem = "Voc\'ea \'e9 maior de idade!";\par
+        $classe = "success"; // Classe CSS para mensagem de sucesso\par
+    \} else \{\par
+        $mensagem = "Voc\'ea \'e9 menor de idade!";\par
+        $classe = "error"; // Classe CSS para mensagem de erro\par
+    \}\par
+\}\par
+?>\par
+\b0\par
+<div class="container">\par
+    <h2>Verificador de Idade</h2>\par
+    <!-- Formul\'e1rio para inserir a idade -->\par
+    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">\par
+        <label for="idade">Insira sua idade:</label>\par
+        <input type="number" id="idade" name="idade" value="<?php echo $idade; ?>" required>\par
+        <button type="submit">Verificar</button>\par
+    </form>\par
+\par
+    <!-- Exibe a mensagem na p\'e1gina se o formul\'e1rio foi enviado -->\par
+    <?php if ($_SERVER["REQUEST_METHOD"] == "POST"): ?>\par
+        <p class="message <?php echo $classe; ?>"><?php echo $mensagem; ?></p>\par
+    <?php endif; ?>\par
+</div>\par
+\par
+</body>\par
+</html>\par
+\cf2\par
+
+\pard\qj\par
+
+\pard\cf1\fs26 ELSEIF\par
+\cf2\fs22 Agora vamos tratar de uma combina\'e7\'e3o entre ELSE e IF, colocado anteriormente neste tema. Agora vamos colocar if e else um dentro do outro chamado de composto. Estrutura de fluxo uma dentro da outra.\par
+\par
+\cf3 <!DOCTYPE html>\par
+<html lang="pt-br">\par
+<head>\par
+    <meta charset="UTF-8">\par
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">\par
+    <title>Exemplo de ElseIf em PHP Interativo</title>\par
+    <style>\par
+        body \{\par
+            font-family: Arial, sans-serif;\par
+            background-color: #f2f2f2;\par
+        \}\par
+\par
+        .container \{\par
+            max-width: 500px;\par
+            margin: 0 auto;\par
+            padding: 20px;\par
+            background-color: #fff;\par
+            border-radius: 8px;\par
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);\par
+        \}\par
+\par
+        h2 \{\par
+            color: #333;\par
+            text-align: center;\par
+        \}\par
+\par
+        .form-group \{\par
+            margin-bottom: 20px;\par
+        \}\par
+\par
+        label \{\par
+            font-weight: bold;\par
+            display: block;\par
+        \}\par
+\par
+        select \{\par
+            width: 100%;\par
+            padding: 10px;\par
+            border: 1px solid #ccc;\par
+            border-radius: 4px;\par
+        \}\par
+\par
+        .message \{\par
+            margin-top: 20px;\par
+            padding: 10px;\par
+            border-radius: 4px;\par
+            text-align: center;\par
+        \}\par
+\par
+        .beginner \{\par
+            color: blue;\par
+        \}\par
+\par
+        .intermediate \{\par
+            color: orange;\par
+        \}\par
+\par
+        .advanced \{\par
+            color: green;\par
+        \}\par
+    </style>\par
+</head>\par
+<body>\par
+\par
+<div class="container">\par
+    <h2>Selecione seu N\'edvel de Habilidade</h2>\par
+    <div class="form-group">\par
+        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">\par
+            <label for="nivel">N\'edvel de Habilidade:</label>\par
+            <select id="nivel" name="nivel">\par
+                <option value="iniciante">Iniciante</option>\par
+                <option value="intermediario">Intermedi\'e1rio</option>\par
+                <option value="avancado">Avan\'e7ado</option>\par
+            </select>\par
+            <button type="submit">Verificar</button>\par
+        </form>\par
+    </div>\par
+\par
+\b     <?php\par
+    if ($_SERVER["REQUEST_METHOD"] == "POST") \{\par
+        $nivel_habilidade = $_POST['nivel'];\par
+\par
+        if ($nivel_habilidade == "iniciante") \{\par
+            $mensagem = "Voc\'ea \'e9 um jogador iniciante. Continue praticando!";\par
+            $classe = "beginner";\par
+        \} elseif ($nivel_habilidade == "intermediario") \{\par
+            $mensagem = "Voc\'ea est\'e1 melhorando! Continue assim!";\par
+            $classe = "intermediate";\par
+        \} elseif ($nivel_habilidade == "avancado") \{\par
+            $mensagem = "Voc\'ea \'e9 um jogador avan\'e7ado. Parab\'e9ns!";\par
+            $classe = "advanced";\par
+        \} else \{\par
+            $mensagem = "Seu n\'edvel de habilidade n\'e3o foi reconhecido.";\par
+            $classe = "error";\par
+        \}\par
+        ?\b0 >\par
+\par
+        <div class="message <?php echo $classe; ?>">\par
+            <?php echo $mensagem; ?>\par
+        </div>\par
+    <?php \} ?>\par
+</div>\par
+\par
+</body>\par
+</html>\par
+\par
+\cf1\b\f0\fs28 4.3 SWITCH\par
+
+\pard\qj\cf2\b0\f1\fs22 O comando condicional Switch no PHP ou em qualquer linguagem de programa\'e7\'e3o segue a mesma sintaxe, e com a mesma similaridade do If e else, a diferen\'e7a entre ambos \'e9 que o switch usa somente a cl\'e1usula case no caso somente se for verdadeiro.\par
+\par
+\cf3 <!DOCTYPE html>\par
+<html lang="pt-br">\par
+<head>\par
+    <meta charset="UTF-8">\par
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">\par
+    <title>Exemplo de ElseIf em PHP Interativo</title>\par
+    <style>\par
+        body \{\par
+            font-family: Arial, sans-serif;\par
+            background-color: #f2f2f2;\par
+        \}\par
+\par
+        .container \{\par
+            max-width: 500px;\par
+            margin: 0 auto;\par
+            padding: 20px;\par
+            background-color: #fff;\par
+            border-radius: 8px;\par
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);\par
+        \}\par
+\par
+        h2 \{\par
+            color: #333;\par
+            text-align: center;\par
+        \}\par
+\par
+        .form-group \{\par
+            margin-bottom: 20px;\par
+        \}\par
+\par
+        label \{\par
+            font-weight: bold;\par
+            display: block;\par
+        \}\par
+\par
+        select \{\par
+            width: 100%;\par
+            padding: 10px;\par
+            border: 1px solid #ccc;\par
+            border-radius: 4px;\par
+        \}\par
+\par
+        .message \{\par
+            margin-top: 20px;\par
+            padding: 10px;\par
+            border-radius: 4px;\par
+            text-align: center;\par
+        \}\par
+\par
+        .beginner \{\par
+            color: blue;\par
+        \}\par
+\par
+        .intermediate \{\par
+            color: orange;\par
+        \}\par
+\par
+        .advanced \{\par
+            color: green;\par
+        \}\par
+    </style>\par
+</head>\par
+<body>\par
+\par
+<div class="container">\par
+    <h2>Selecione seu N\'edvel de Habilidade</h2>\par
+    <div class="form-group">\par
+        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">\par
+            <label for="nivel">N\'edvel de Habilidade:</label>\par
+            <select id="nivel" name="nivel">\par
+                <option value="iniciante">Iniciante</option>\par
+                <option value="intermediario">Intermedi\'e1rio</option>\par
+                <option value="avancado">Avan\'e7ado</option>\par
+            </select>\par
+            <button type="submit">Verificar</button>\par
+        </form>\par
+    </div>\par
+\par
+\b     <?php\par
+    if ($_SERVER["REQUEST_METHOD"] == "POST") \{\par
+        $nivel_habilidade = $_POST['nivel'];\par
+        switch ($nivel_habilidade) \{\par
+            case 'iniciante':\par
+                $mensagem = "Voc\'ea \'e9 um jogador iniciante. Continue praticando!";\par
+                $classe = "beginner";\par
+                break;\par
+            case 'intermediario':\par
+                $mensagem = "Voc\'ea est\'e1 melhorando! Continue assim!";\par
+                $classe = "intermediate";\par
+                break;\par
+            case 'avancado':\par
+                $mensagem = "Voc\'ea \'e9 um jogador avan\'e7ado. Parab\'e9ns!";\par
+                $classe = "advanced";\par
+                break;\par
+            default:\par
+                $mensagem = "Seu n\'edvel de habilidade n\'e3o foi reconhecido.";\par
+                $classe = "error";\par
+                break;\par
+        \}\par
+        ?>\b0\par
+\par
+        <div class="message <?php echo $classe; ?>">\par
+            <?php echo $mensagem; ?>\par
+        </div>\par
+    <?php \} ?>\par
+</div>\par
+\par
+</body>\par
+</html>\par
+\par
+
+\pard\cf1\b\f0\fs28 4.4 Comando de repeti\'e7\'e3o\par
+
+\pard\qj\cf2\b0\f1\fs22 Comando de repeti\'e7\'e3o tem a fun\'e7\'e3o de determinar os n\'fameros de vezes que um bloco uma sequ\'eancia de instru\'e7\'f5es pode ocorrer, uma repeti\'e7\'e3o colocada pelo o programador, ajuda a diminuir uma codifica\'e7\'e3o dentro da sintaxe. Vamos falar nesse cap\'edtulo dos principais comandos de repeti\'e7\'e3o usados no PHP, sendo while, do .. while, for e foreach.\par
+\par
+\cf1\fs26 WHILE\par
+\cf2\fs22 O mais simples de ser colocado em a\'e7\'e3o, por\'e9m nesse caso usando o While sabemos o in\'edcio mais n\'e3o o fim, da repeti\'e7\'e3o. Veja o exemplo.\par
+\par
+\cf3 <!DOCTYPE html>\par
+<html lang="pt-br">\par
+<head>\par
+    <meta charset="UTF-8">\par
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">\par
+    <title>Exemplo de While em PHP Interativo</title>\par
+    <style>\par
+        body \{\par
+            font-family: Arial, sans-serif;\par
+            background-color: #f2f2f2;\par
+            margin: 0;\par
+            padding: 0;\par
+            display: flex;\par
+            justify-content: center;\par
+            align-items: center;\par
+            min-height: 100vh;\par
+        \}\par
+\par
+        .container \{\par
+            max-width: 600px;\par
+            background-color: #fff;\par
+            border-radius: 8px;\par
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);\par
+            padding: 20px;\par
+        \}\par
+\par
+        table \{\par
+            width: 100%;\par
+            margin-top: 20px;\par
+            border-collapse: collapse;\par
+        \}\par
+\par
+        th, td \{\par
+            padding: 10px;\par
+            text-align: center;\par
+            border: 1px solid #ccc;\par
+        \}\par
+\par
+        th \{\par
+            background-color: #007bff;\par
+            color: #fff;\par
+        \}\par
+\par
+        tr:nth-child(even) \{\par
+            background-color: #f2f2f2;\par
+        \}\par
+\par
+        tr:hover \{\par
+            background-color: #e0e0e0;\par
+        \}\par
+\par
+        .form-container \{\par
+            text-align: center;\par
+            margin-bottom: 20px;\par
+        \}\par
+\par
+        input[type="number"] \{\par
+            padding: 10px;\par
+            border-radius: 4px;\par
+            border: 1px solid #ccc;\par
+        \}\par
+\par
+        button \{\par
+            padding: 10px 20px;\par
+            border-radius: 4px;\par
+            border: none;\par
+            background-color: #007bff;\par
+            color: #fff;\par
+            cursor: pointer;\par
+        \}\par
+\par
+        button:hover \{\par
+            background-color: #0056b3;\par
+        \}\par
+\par
+        .restart-link \{\par
+            display: block;\par
+            text-align: center;\par
+            margin-top: 20px;\par
+            color: #007bff;\par
+            text-decoration: none;\par
+        \}\par
+    </style>\par
+</head>\par
+<body>\par
+\par
+<div class="container">\par
+    <div class="form-container">\par
+        <h2>Gerador de N\'fameros</h2>\par
+        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">\par
+            <label for="limite">Limite Superior:</label>\par
+            <input type="number" id="limite" name="limite" min="1" max="400" required>\par
+            <button type="submit">Gerar Tabela</button>\par
+        </form>\par
+    </div>\par
+\par
+\b     <?php if ($_SERVER["REQUEST_METHOD"] == "POST"): ?>\par
+        <?php\par
+        $limite = $_POST['limite'];\par
+        $i = 1;\par
+        ?>\b0\par
+        <table>\par
+            <thead>\par
+            <tr>\par
+                <th>N\'famero</th>\par
+            </tr>\par
+            </thead>\par
+            <tbody>\par
+\b             <?php\par
+            // Loop while para gerar n\'fameros at\'e9 o limite especificado\par
+            while ($i <= $limite) \{\par
+                echo "<tr><td>$i</td></tr>";\par
+                $i++;\par
+            \}\par
+            ?>\par
+\b0             </tbody>\par
+        </table>\par
+        <a href="\b <?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>\b0 " class="restart-link">Gerar outra tabela</a>\par
+\b     <?php endif; ?>\par
+\b0\par
+</div>\par
+\par
+</body>\par
+</html>\par
+\par
+
+\pard\cf1\fs26 DO ... WHILE\par
+\cf2\fs22 Muito parecido com o while, por\'e9m mesmo sendo falso ele repete a primeira vez, n\'e3o precisando fazer a rotina de verifica\'e7\'e3o.\par
+\par
+\cf3 <!DOCTYPE html>\par
+<html lang="en">\par
+<head>\par
+    <meta charset="UTF-8">\par
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">\par
+    <title>Tabuada</title>\par
+</head>\par
+<body>\par
+    <h2>Tabuada</h2>\par
+    <form method="post">\par
+        <label for="number">Enter a number:</label>\par
+        <input type="number" id="number" name="number">\par
+        <button type="submit" name="generate">Generate Table</button>\par
+    </form>\par
+    \par
+\b     <?php\par
+    if(isset($_POST['generate'])) \{\par
+        $number = $_POST['number'];\par
+        \par
+        if(is_numeric($number)) \{\par
+            echo "<h3>Tabuada do $number:</h3>";\par
+            \par
+            $i = 1;\par
+            do \{\par
+                $result = $number * $i;\par
+                echo "$number x $i = $result<br>";\par
+                $i++;\par
+            \} while ($i <= 10);\par
+        \} else \{\par
+            echo "<p>Please enter a valid number to generate the table.</p>";\par
+        \}\par
+    \}\par
+    ?>\par
+\b0 </body>\par
+</html>\par
+\par
+
+\pard\qj\cf2 Neste exemplo, a tabuada ser\'e1 sempre exibida, independentemente do n\'famero inserido pelo usu\'e1rio. Isso ocorre porque o do...while executa o bloco de c\'f3digo pelo menos uma vez. Mesmo que a condi\'e7\'e3o para o loop ( $i <= 10) n\'e3o seja verdadeira inicialmente, o bloco de c\'f3digo \'e9 executado pelo menos uma vez antes que a condi\'e7\'e3o seja verificada. Dessa forma, a tabuada sempre ser\'e1 gerada, mesmo se o usu\'e1rio inserir um n\'famero negativo ou zero.\par
+\par
+\cf3 <!DOCTYPE html>\par
+<html lang="en">\par
+<head>\par
+    <meta charset="UTF-8">\par
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">\par
+    <title>Tabuada</title>\par
+</head>\par
+<body>\par
+    <h2>Tabuada</h2>\par
+    <form method="post">\par
+        <label for="number">Enter a number:</label>\par
+        <input type="number" id="number" name="number">\par
+        <button type="submit" name="generate">Generate Table</button>\par
+    </form>\par
+    \par
+\b     <?php\par
+    if(isset($_POST['generate'])) \{\par
+        $number = $_POST['number'];\par
+        \par
+        if($number > 0) \{\par
+            echo "<h3>Tabuada do $number:</h3>";\par
+            \par
+            $i = 1;\par
+            while ($i <= 10) \{\par
+                $result = $number * $i;\par
+                echo "$number x $i = $result<br>";\par
+                $i++;\par
+            \}\par
+        \} else \{\par
+            echo "<p>Please enter a positive number to generate the table.</p>";\par
+        \}\par
+    \}\par
+    ?>\par
+\b0 </body>\par
+</html>\par
+\par
+\cf2 Neste exemplo, a tabuada ser\'e1 exibida apenas se o n\'famero inserido for positivo. Se um n\'famero negativo for inserido, uma mensagem de aviso ser\'e1 exibida ao inv\'e9s da tabuada. Agora a diferen\'e7a entre while e do...while \'e9 mais evidente, pois com do...while, a tabuada seria exibida mesmo com um n\'famero negativo.\par
+\par
+
+\pard\cf1\fs26 FOR\par
+
+\pard\qj\cf2\fs22 Este comando \'e9 o loop que repete o in\'edcio e fim espec\'edfico determinado pelo programador, diferente do while que s\'f3 sabemos o in\'edcio.\par
+\par
+\cf3 <!DOCTYPE html>\par
+<html lang="en">\par
+<head>\par
+    <meta charset="UTF-8">\par
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">\par
+    <title>Exemplo de Loop For</title>\par
+    <style>\par
+        body \{\par
+            font-family: Arial, sans-serif;\par
+            margin: 0;\par
+            padding: 20px;\par
+        \}\par
+\par
+        .number-list \{\par
+            list-style: none;\par
+            padding: 0;\par
+        \}\par
+\par
+        .number-item \{\par
+            margin-bottom: 5px;\par
+            padding: 10px;\par
+            background-color: #f0f0f0;\par
+            border-radius: 5px;\par
+        \}\par
+    </style>\par
+</head>\par
+<body>\par
+    <h2>N\'fameros de 1 a 10:</h2>\par
+    <ul class="number-list">\par
+\b         <?php\par
+        for ($i = 1; $i <= 10; $i++) \{\par
+            echo "<li class='number-item'>$i</li>";\par
+        \}\par
+        ?>\par
+\b0     </ul>\par
+</body>\par
+</html>\par
+\par
+
+\pard\cf1\fs26 FOREACH\par
+
+\pard\qj\cf2\fs22 O comando foreach \'e9 um la\'e7o de repeti\'e7\'e3o usado para Array, sendo mais f\'e1cil a intera\'e7\'e3o dentro de um conjunto usando matriz e vetor, tamb\'e9m usado para interagir com uma lista de dados vindo de uma base de dados. Na pr\'e1tica vamos ver ele quando entrarmos no tema de banco de dados.\par
+\par
+\cf3 <!DOCTYPE html>\par
+<html lang="en">\par
+<head>\par
+    <meta charset="UTF-8">\par
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">\par
+    <title>Exemplo de Loop Foreach</title>\par
+    <style>\par
+        body \{\par
+            font-family: Arial, sans-serif;\par
+            margin: 0;\par
+            padding: 20px;\par
+        \}\par
+\par
+        .item-list \{\par
+            list-style: none;\par
+            padding: 0;\par
+        \}\par
+\par
+        .item \{\par
+            margin-bottom: 5px;\par
+            padding: 10px;\par
+            background-color: #f0f0f0;\par
+            border-radius: 5px;\par
+        \}\par
+    </style>\par
+</head>\par
+<body>\par
+    <h2>Lista de Cores:</h2>\par
+    <ul class="item-list">\par
+\b         <?php\par
+        $colors = array("Red", "Green", "Blue", "Yellow", "Orange");\par
+\par
+        foreach ($colors as $color) \{\par
+            echo "<li class='item'>$color</li>";\par
+        \}\par
+        ?>\par
+\b0     </ul>\par
+</body>\par
+</html>\par
+\par
+\cf2 Neste exemplo:\par
+\par
+Um array $colors \'e9 definido com algumas cores.\par
+Um loop foreach \'e9 usado para iterar sobre cada elemento do array $colors.\par
+Dentro do loop, cada cor \'e9 envolvida em um elemento <li> para criar uma lista.\par
+CSS \'e9 usado para estilizar a lista e cada item da lista para torn\'e1-los visualmente agrad\'e1veis.\par
+\cf3\par
+\cf2 A estrutura foreach \'e9 frequentemente utilizada em conjunto com bancos de dados devido \'e0 sua capacidade de iterar facilmente sobre os resultados de uma consulta SQL. Quando voc\'ea executa uma consulta SQL em um banco de dados, ela geralmente retorna m\'faltiplas linhas de dados (resultados). O foreach \'e9 ideal para iterar sobre esses resultados e process\'e1-los conforme necess\'e1rio.\par
+\par
+\b Aqui est\'e3o algumas raz\'f5es pelas quais o foreach \'e9 comumente usado com bancos de dados:\par
+\b0\par
+Facilidade de uso: O foreach \'e9 simples e f\'e1cil de entender. Ele permite iterar sobre cada resultado de uma consulta de forma direta e sem a necessidade de acompanhar \'edndices ou contadores.\par
+\par
+Flexibilidade: O foreach pode ser usado com diferentes tipos de dados retornados por uma consulta SQL, como arrays associativos ou objetos.\par
+\par
+Clareza de c\'f3digo: O uso do foreach torna o c\'f3digo mais leg\'edvel e conciso em compara\'e7\'e3o com outras formas de itera\'e7\'e3o, como loops for ou while.\cf3\par
+\par
+<!DOCTYPE html>\par
+<html lang="en">\par
+<head>\par
+    <meta charset="UTF-8">\par
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">\par
+    <title>Exemplo de Leitura de Registros</title>\par
+    <style>\par
+        body \{\par
+            font-family: Arial, sans-serif;\par
+            margin: 0;\par
+            padding: 20px;\par
+        \}\par
+\par
+        table \{\par
+            width: 100%;\par
+            border-collapse: collapse;\par
+        \}\par
+\par
+        th, td \{\par
+            border: 1px solid #ddd;\par
+            padding: 8px;\par
+            text-align: left;\par
+        \}\par
+\par
+        th \{\par
+            background-color: #f2f2f2;\par
+        \}\par
+    </style>\par
+</head>\par
+<body>\par
+    <h2>Registros de Setores</h2>\par
+    <table>\par
+        <tr>\par
+            <th>Setor</th>\par
+            <th>Local</th>\par
+            <th>Lota\'e7\'e3o</th>\par
+        </tr>\par
+\b         <?php\par
+        // Array associativo com os registros simulados\par
+        $registros = array(\par
+            array("Setor" => "Compras", "Local" => "Bloco A1", "Lotacao" => 4),\par
+            array("Setor" => "RH", "Local" => "Bloco A2", "Lotacao" => 6),\par
+            array("Setor" => "Finan\'e7as", "Local" => "Bloco B1", "Lotacao" => 8),\par
+            array("Setor" => "Atendimento", "Local" => "Bloco B2", "Lotacao" => 14)\par
+        );\par
+\par
+        // Loop foreach para percorrer os registros e exibi-los na tabela\par
+        foreach ($registros as $registro) \{\par
+            echo "<tr>";\par
+            echo "<td>\{$registro['Setor']\}</td>";\par
+            echo "<td>\{$registro['Local']\}</td>";\par
+            echo "<td>\{$registro['Lotacao']\}</td>";\par
+            echo "</tr>";\par
+        \}\par
+        ?>\par
+\b0     </table>\par
+</body>\par
+</html>\par
+\par
+Neste exemplo:\par
+\cf2\par
+Definimos um array associativo chamado $registros, onde cada elemento representa um registro com informa\'e7\'f5es de Setor, Local e Lota\'e7\'e3o.\par
+Utilizamos um loop foreach para percorrer cada registro no array $registros e exibir suas informa\'e7\'f5es em uma tabela HTML.\par
+O HTML e o CSS s\'e3o usados para estruturar e estilizar a tabela de forma adequada.\par
+\par
+\par
+
+\pard\cf1\b\f0\fs28 4.5 BREAK\par
+
+\pard\qj\cf2\b0\f1\fs22 O comando ou tamb\'e9m conhecido como um elemento dentro da sintaxe do PHP, ser\'e1 usado ou chamada para parar uma instru\'e7\'e3o, podendo ser de loop la\'e7o de repeti\'e7\'e3o ou at\'e9 de uma condi\'e7\'e3o.\par
+\par
+\cf1\b\f0\fs28 4.6 CONTINUE\par
+\par
+\cf3\b0\f1\fs22 <!DOCTYPE html>\par
+<html lang="en">\par
+<head>\par
+    <meta charset="UTF-8">\par
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">\par
+    <title>Exemplo de Break e Continue</title>\par
+    <style>\par
+        body \{\par
+            font-family: Arial, sans-serif;\par
+            margin: 0;\par
+            padding: 20px;\par
+        \}\par
+\par
+        .number-list \{\par
+            list-style: none;\par
+            padding: 0;\par
+        \}\par
+\par
+        .number-item \{\par
+            margin-bottom: 5px;\par
+            padding: 10px;\par
+            background-color: #f0f0f0;\par
+            border-radius: 5px;\par
+        \}\par
+\par
+        .highlight \{\par
+            background-color: yellow;\par
+        \}\par
+    </style>\par
+</head>\par
+<body>\par
+    <h2>N\'fameros</h2>\par
+    <ul class="number-list">\par
+\b         <?php\par
+        $numbers = [2, 4, 6, 8, 10, 7, 12, 3, 14, 16];\par
+\par
+        foreach ($numbers as $number) \{\par
+            if ($number > 13) \{\par
+                echo "<li class='number-item highlight'>$number (Break)</li>";\par
+                break;\par
+            \}\par
+\par
+            if ($number % 2 != 0) \{\par
+                echo "<li class='number-item'>$number (\'cdmpar, Continue)</li>";\par
+                continue;\par
+            \}\par
+\par
+            echo "<li class='number-item'>$number</li>";\par
+        \}\par
+        ?>\par
+\b0     </ul>\par
+</body>\par
+</html>\par
+\par
+\cf0 Neste exemplo:\par
+\par
+Criamos um array $numbers com uma s\'e9rie de n\'fameros.\par
+Usamos um loop foreach para iterar sobre esses n\'fameros.\par
+Dentro do loop:\par
+Se encontrarmos um n\'famero maior que 13, destacamos-o com a classe highlight e usamos break para parar a itera\'e7\'e3o.\par
+Se encontrarmos um n\'famero \'edmpar, simplesmente o ignoramos usando continue e passamos para a pr\'f3xima itera\'e7\'e3o.\par
+Caso contr\'e1rio, exibimos o n\'famero normalmente.\par
+Usamos CSS para estilizar a lista e os itens, e tamb\'e9m para destacar os n\'fameros que encontram as condi\'e7\'f5es especiais.\par
+\cf3\par
+\cf0\b RESUMO\par
+\cf3\b0\par
+\cf0 O comando ou tamb\'e9m chamado de elemento dentro da sintaxe do PHP, vai ser usado quando paramos uma instru\'e7\'e3o no Break, sendo ent\'e3o para a l\'f3gica voltar a correr usamos o continue.\par
+No cap\'edtulo sobre "Estrutura de Controle" abordamos os conceitos fundamentais relacionados ao fluxo de controle de dados em linguagens de programa\'e7\'e3o, com foco na sintaxe do PHP. Discutimos as estruturas condicionais, com \'eanfase em IF, ELSE e ELSEIF, que permitem tomar decis\'f5es com base na avalia\'e7\'e3o de express\'f5es como verdadeiras ou falsas. Al\'e9m disso, introduzimos a estrutura de controle SWITCH, que oferece uma alternativa \'e0 condicional IF.\par
+Exploramos os comandos de repeti\'e7\'e3o, incluindo WHILE, DO...WHILE, FOR e FOREACH, destacando suas caracter\'edsticas e aplica\'e7\'f5es. O WHILE \'e9 \'fatil quando conhecemos o in\'edcio, mas n\'e3o o fim de uma repeti\'e7\'e3o, enquanto o DO...WHILE garante que a repeti\'e7\'e3o ocorra pelo menos uma vez, mesmo que a condi\'e7\'e3o seja falsa inicialmente. O FOR permite repeti\'e7\'f5es com in\'edcio e fim espec\'edficos determinados pelo programador, oferecendo mais controle.\par
+
+\pard Introduzimos os comandos BREAK e CONTINUE, que s\'e3o elementos importantes na sintaxe do PHP. O BREAK \'e9 usado para interromper uma instru\'e7\'e3o, como um loop ou uma condi\'e7\'e3o, enquanto o CONTINUE permite retomar a execu\'e7\'e3o l\'f3gica ap\'f3s uma interrup\'e7\'e3o.Essas estruturas de controle s\'e3o essenciais para direcionar o fluxo de um programa, tornando-o mais eficiente e capaz de tomar decis\'f5es com base em condi\'e7\'f5es espec\'edficas. No pr\'f3ximo cap\'edtulo, exploraremos a aplica\'e7\'e3o dessas estruturas em cen\'e1rios pr\'e1ticos de desenvolvimento back-end.\par
+\par
+\b ATIVIDADES: \par
+\par
+
+\pard\qj\f0 1. \b0\f1 Descreva a fun\'e7\'e3o das estruturas condicionais IF e ELSE, e d\'ea um exemplo pr\'e1tico de situa\'e7\'e3o em que elas seriam aplicadas no desenvolvimento web.\par
+\b\f0 2. \b0\f1 Explique a diferen\'e7a entre as estruturas condicionais IF e SWITCH. Em que cen\'e1rios\par
+cada uma delas \'e9 mais adequada?\par
+\b\f0 3. \b0\f1 Suponha que voc\'ea esteja desenvolvendo um sistema de login para um site. Crie um pseudoc\'f3digo que utilize uma estrutura condicional composta (IF ELSE) para verificar se as credenciais de um usu\'e1rio s\'e3o v\'e1lidas ou n\'e3o.\par
+\b\f0 4. \b0\f1 Em que situa\'e7\'e3o voc\'ea usaria a estrutura condicional ELSE IF em vez de v\'e1rias estruturas IF independentes? D\'ea um exemplo pr\'e1tico\par
+\b\f0 5. \b0\f1 Descreva as principais caracter\'edsticas da estrutura de repeti\'e7\'e3o FOR e forne\'e7a um exemplo de aplica\'e7\'e3o dessa estrutura em um contexto de desenvolvimento web.\par
+\b\f0 6. \b0\f1 Qual \'e9 a finalidade da estrutura de repeti\'e7\'e3o DO...WHILE? D\'ea um exemplo simples de como ela pode ser usada em um site.\par
+\b\f0 7. \b0\f1 Crie um cen\'e1rio hipot\'e9tico em que o comando CONTINUE seja \'fatil em um c\'f3digo PHP de uma p\'e1gina da web.\par
+\b\f0 8\b0\f1 . Qual \'e9 a diferen\'e7a fundamental entre a estrutura condicional IF e a estrutura condicional SWITCH? Explique usando um exemplo.\par
+\b\f0 9\b0\f1 .Qual \'e9 a fun\'e7\'e3o do la\'e7o de repeti\'e7\'e3o na programa\'e7\'e3o?\par
+\b\f0 10\b0\f1 . Em um site de e-commerce, como a estrutura de repeti\'e7\'e3o FOR poderia ser empregada para exibir uma lista de produtos em uma p\'e1gina?\par
+\par
+\b RESPOSTAS\par
+\b0 1. As estruturas condicionais IF e ELSE s\'e3o utilizadas para tomar decis\'f5es com base na avalia\'e7\'e3o de express\'f5es como verdadeiras ou falsas. O IF permite executar um bloco de c\'f3digo se uma condi\'e7\'e3o for verdadeira, enquanto o ELSE permite executar um bloco de c\'f3digo alternativo caso a condi\'e7\'e3o do IF seja falsa.\par
+\par
+   Exemplo pr\'e1tico:\par
+   Suponha que voc\'ea esteja desenvolvendo um sistema de e-commerce e deseja exibir um desconto para produtos que estejam em promo\'e7\'e3o. Voc\'ea pode usar uma estrutura IF para verificar se o produto est\'e1 em promo\'e7\'e3o e, se estiver, exibir o pre\'e7o com desconto. Caso contr\'e1rio, exiba o pre\'e7o normal do produto utilizando a estrutura ELSE.\par
+\par
+2. A diferen\'e7a entre as estruturas condicionais IF e SWITCH reside principalmente na forma como elas lidam com m\'faltiplas condi\'e7\'f5es. O IF \'e9 adequado para situa\'e7\'f5es em que h\'e1 apenas algumas condi\'e7\'f5es a serem verificadas e cada uma \'e9 diferente. O SWITCH, por outro lado, \'e9 mais adequado quando h\'e1 uma grande quantidade de condi\'e7\'f5es a serem verificadas e cada uma leva a um resultado diferente.\par
+\par
+   O IF \'e9 mais flex\'edvel e pode lidar com condi\'e7\'f5es mais complexas, enquanto o SWITCH \'e9 mais eficiente em termos de desempenho quando h\'e1 muitas condi\'e7\'f5es a serem avaliadas.\par
+\par
+3. Pseudoc\'f3digo para verifica\'e7\'e3o de credenciais de usu\'e1rio:\par
+\par
+```php\par
+if (credenciais s\'e3o v\'e1lidas) \{\par
+    redirecionar para a p\'e1gina de perfil do usu\'e1rio;\par
+\} else \{\par
+    exibir mensagem de erro informando que as credenciais s\'e3o inv\'e1lidas;\par
+\}\par
+```\par
+\par
+4. A estrutura condicional ELSE IF \'e9 utilizada quando h\'e1 necessidade de verificar m\'faltiplas condi\'e7\'f5es encadeadas de forma mais eficiente do que usar v\'e1rias estruturas IF independentes. Ela \'e9 mais adequada quando cada condi\'e7\'e3o depende do resultado da condi\'e7\'e3o anterior.\par
+\par
+   Exemplo pr\'e1tico:\par
+   Suponha que voc\'ea esteja desenvolvendo um sistema de classifica\'e7\'e3o de produtos em um e-commerce. Voc\'ea pode usar ELSE IF para classificar os produtos em categorias diferentes com base em seu pre\'e7o. Por exemplo, se o pre\'e7o for inferior a $10, \'e9 uma categoria "Barato", se estiver entre $10 e $50, \'e9 uma categoria "M\'e9dio", e assim por diante.\par
+\par
+5. A estrutura de repeti\'e7\'e3o FOR \'e9 caracterizada por um loop controlado por um contador, com in\'edcio, condi\'e7\'e3o de parada e incremento definidos pelo programador. Ela \'e9 especialmente \'fatil quando o n\'famero de itera\'e7\'f5es \'e9 conhecido antecipadamente.\par
+\par
+   Exemplo de aplica\'e7\'e3o em desenvolvimento web:\par
+   Suponha que voc\'ea precise exibir uma lista de posts em um blog. Voc\'ea pode usar um loop FOR para percorrer um array de posts e exibir cada um deles em uma p\'e1gina HTML.\par
+\par
+```php\par
+<?php\par
+$posts = array("Post 1", "Post 2", "Post 3", "Post 4", "Post 5");\par
+\par
+for ($i = 0; $i < count($posts); $i++) \{\par
+    echo "<div class='post'>" . $posts[$i] . "</div>";\par
+\}\par
+?>\par
+```\par
+\par
+6. A estrutura de repeti\'e7\'e3o DO...WHILE \'e9 usada quando se deseja que o bloco de c\'f3digo seja executado pelo menos uma vez, mesmo que a condi\'e7\'e3o de teste seja falsa. \'c9 \'fatil quando \'e9 necess\'e1rio garantir que o bloco de c\'f3digo seja executado antes de verificar a condi\'e7\'e3o.\par
+\par
+   Exemplo simples:\par
+   Suponha que voc\'ea esteja desenvolvendo um formul\'e1rio de feedback em um site. Voc\'ea pode usar um loop DO...WHILE para garantir que o formul\'e1rio seja exibido pelo menos uma vez, mesmo que o usu\'e1rio n\'e3o forne\'e7a nenhum feedback.\par
+\par
+```php\par
+<?php\par
+do \{\par
+    exibir_formulario_feedback();\par
+\} while ($feedback_nao_fornecido);\par
+?>\par
+```\par
+\par
+7. O comando CONTINUE \'e9 \'fatil quando se deseja interromper a itera\'e7\'e3o atual de um loop e continuar com a pr\'f3xima itera\'e7\'e3o. Um cen\'e1rio em que isso seria \'fatil \'e9 quando se deseja pular a itera\'e7\'e3o de um loop para determinados casos ou condi\'e7\'f5es.\par
+\par
+   Exemplo hipot\'e9tico:\par
+   Suponha que voc\'ea esteja processando uma lista de pedidos em um sistema de e-commerce e deseja pular os pedidos que j\'e1 foram entregues. Voc\'ea pode usar CONTINUE para pular esses pedidos e continuar com o processamento dos pr\'f3ximos pedidos.\par
+\par
+8. A diferen\'e7a fundamental entre a estrutura condicional IF e a estrutura condicional SWITCH \'e9 a maneira como elas lidam com m\'faltiplas condi\'e7\'f5es. IF \'e9 mais flex\'edvel e pode lidar com condi\'e7\'f5es mais complexas, enquanto SWITCH \'e9 mais eficiente em termos de desempenho e \'e9 mais adequado para uma grande quantidade de condi\'e7\'f5es com resultados diferentes.\par
+\par
+   Exemplo:\par
+   Suponha que voc\'ea esteja desenvolvendo um sistema de autentica\'e7\'e3o e deseja verificar o n\'edvel de acesso de um usu\'e1rio. Com IF, voc\'ea pode ter v\'e1rias condi\'e7\'f5es para verificar diferentes n\'edveis de acesso (por exemplo, admin, usu\'e1rio regular, convidado). Com SWITCH, voc\'ea pode comparar o n\'edvel de acesso em uma estrutura mais simplificada.\par
+\par
+9. O la\'e7o de repeti\'e7\'e3o na programa\'e7\'e3o \'e9 utilizado para executar um bloco de c\'f3digo v\'e1rias vezes, com base em uma condi\'e7\'e3o de teste. Ele permite automatizar tarefas repetitivas e processar grandes volumes de dados de forma eficiente.\par
+\par
+10. No contexto de um site de e-commerce, a estrutura de repeti\'e7\'e3o FOR poderia ser usada para exibir uma lista de produtos em uma p\'e1gina. Por exemplo, suponha que voc\'ea tenha um array contendo informa\'e7\'f5es sobre os produtos dispon\'edveis. Voc\'ea pode usar um loop FOR para percorrer esse array e exibir cada produto em um formato adequado na p\'e1gina, juntamente com seus detalhes, como nome, pre\'e7o e imagem.\par
+\par
+```php\par
+<?php\par
+$produtos = array(\par
+    array("nome" => "Camisa", "preco" => 25.00, "imagem" => "camisa.jpg"),\par
+    array("nome" => "Cal\'e7a", "preco" => 50.00, "imagem" => "calca.jpg"),\par
+    array("nome" => "T\'eanis", "preco" => 80.00, "imagem" => "tenis.jpg")\par
+);\par
+\par
+for ($i = 0; $i < count($produtos); $i++) \{\par
+    echo "<div class='produto'>";\par
+    echo "<\par
+\par
+img src='" . $produtos[$i]['imagem'] . "' alt='" . $produtos[$i]['nome'] . "'>";\par
+    echo "<p>" . $produtos[$i]['nome'] . "</p>";\par
+    echo "<p>R$" . $produtos[$i]['preco'] . "</p>";\par
+    echo "</div>";\par
+\}\par
+?>\par
+```\par
+\par
+Espero que essas explica\'e7\'f5es e exemplos tenham esclarecido as diferen\'e7as e aplica\'e7\'f5es das estruturas condicionais e de repeti\'e7\'e3o na programa\'e7\'e3o. \par
+\par
+
+\pard\b\f0 Desafio\par
+\b0\f1 1) Fa\'e7a um programa em PHP que define uma vari\'e1vel com o peso e a altura de uma pessoa. Calcule e mostre o IMC.\par
+\par
+2) Fa\'e7a um programa em PHP que mostre todos os n\'fameros inteiros de 100 a 200 com incremento de 2 em 2.\par
+\par
+
+\pard\qj 3) Fa\'e7a um programa em PHP que apresente todos os valores \'edmpares no intervalo de 500 a 1000.\par
+\cf3\b\par
+}
+ 
